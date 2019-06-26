@@ -1,85 +1,35 @@
 package org.tarik.GestionRecrutement.services.servicesImpl;
 
-import org.springframework.stereotype.Service;
-@Service("implcvservice")
-public class CVServiceImpl  {
+import java.io.IOException;
+import java.util.Optional;
 
-//	
-//	@Autowired
-//	CompetenceRepository competenceRepo;
-//	@Autowired
-//	CandidatRepository candidatRepo;
-//	@Autowired
-//	CandidatCompetenceRepository candidatCompetencerepo;
-//	
-//	
-//
-//	@Override
-//	public CVDTO createCV(CVDTO cvdto) {
-//		//Candidat candidat=new Candidat();
-//	//	ModelMapper modelMapper = new ModelMapper();
-//
-//	//	Candidat candidat= modelMapper.map(cvdto, Candidat.class);
-//	
-//	//	candidat= modelMapper.map(cvdto, Candidat.class);
-////		candidat.getNomComplet().setNom(cvdto.getNom());
-////		candidat.getNomComplet().setPrenom(cvdto.getPrenom());
-////		candidat.getAdresse().setNumeroAdresse(cvdto.getNumeroAdresse());
-////		candidat.getAdresse().setPaye(cvdto.getPaye());
-////		candidat.getAdresse().setRue(cvdto.getRue());
-////		candidat.getAdresse().setVille(cvdto.getVille());
-////		candidat.setSex(cvdto.getSex());
-////		candidat.getProfil().setDomain(cvdto.getDomain());
-////		candidat.getProfil().setNbrAnneesExp(cvdto.getNbrAnneesExp());
-////		candidat.getProfil().setPType(cvdto.getPaye());
-////		candidatRepo.save(candidat);
-//		
-//		if(!cvdto.getCompetences().isEmpty())
-//		{
-//     cvdto.getCompetences().forEach(cmp->{
-//    	   Competence comp= new Competence(cmp.getLibelle());
-//    	  competenceRepo.save(comp);
-//    //	  candidatCompetencerepo.save(new CandidatCompetence(candidat,comp,cmp.getNiveau()));
-//     });
-//			
-//		}
-////		 Optional<Candidat> result=candidatRepo.findById(candidat.getCId());
-////
-////		return modelMapper.map(result.get(), CVDTO.class);
-//	///	return modelMapper.map(candidat, CVDTO.class);
-//	}
-//
-//	@Override
-//	public CVDTO updateCV(Long id, CVDTO cvdto) {
-//		Candidat candidat=new Candidat();
-//		ModelMapper modelMapper = new ModelMapper();
-//
-//		
-////		candidat= modelMapper.map(cvdto, Candidat.class);
-//		candidat.getNomComplet().setNom(cvdto.getNom());
-//		candidat.getNomComplet().setPrenom(cvdto.getPrenom());
-//		candidat.getAdresse().setNumeroAdresse(cvdto.getNumeroAdresse());
-//		candidat.getAdresse().setPaye(cvdto.getPaye());
-//		candidat.getAdresse().setRue(cvdto.getRue());
-//		candidat.getAdresse().setVille(cvdto.getVille());
-//		candidat.setSex(cvdto.getSex());
-//		candidat.getProfil().setDomain(cvdto.getDomain());
-//		candidat.getProfil().setNbrAnneesExp(cvdto.getNbrAnneesExp());
-//		candidat.getProfil().setPType(cvdto.getPaye());
-//		candidatRepo.save(candidat);
-//		return null;
-//	}
-//
-//	@Override
-//	public void deleteCV(Long id) {
-//		candidatRepo.deleteById(id);
-//		
-//	}
-//
-//	@Override
-//	public Collection<CVDTO> getCVs() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.tarik.GestionRecrutement.dao.CandidatRepository;
+import org.tarik.GestionRecrutement.dto.entitesDTO.CvDTO;
+import org.tarik.GestionRecrutement.model.Candidat;
+import org.tarik.GestionRecrutement.services.CVService;
+import org.tarik.GestionRecrutement.utils.GenerateurUtil;
+
+@Service("cvservice")
+public class CVServiceImpl implements CVService {
+	@Autowired
+	CandidatRepository candidatRepo;
+
+	@Override
+	public CvDTO generatecv(Long id) throws IOException {
+		Optional<Candidat> candidat = candidatRepo.findById(id);
+		CvDTO cvDTO = new CvDTO();
+		cvDTO.setData(GenerateurUtil.generateFormaWordCV(candidat.get()));
+		StringBuilder sb = new StringBuilder();
+		sb.append("CV_");
+		sb.append(candidat.get().getNomComplet().getNom());
+		sb.append("-");
+		sb.append(candidat.get().getNomComplet().getPrenom());
+		sb.append(".Docx");
+
+		cvDTO.setNameFile(sb.toString());
+		return cvDTO;
+	}
 
 }
