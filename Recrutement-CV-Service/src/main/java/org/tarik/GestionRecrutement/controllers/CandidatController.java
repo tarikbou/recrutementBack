@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.tarik.GestionRecrutement.dto.entitesDTO.CandidatDTO;
 import org.tarik.GestionRecrutement.services.CandidatService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class CandidatController {
 	
 	@Autowired
@@ -23,26 +25,35 @@ public class CandidatController {
 	
 	
 	
-	@GetMapping("/Candidats")
+	@GetMapping("/candidats")
 	public List<CandidatDTO> all(){
-		return null;
+		return candidatService.getCandidats();
+		
 		
 	}
-	@PostMapping("/Candidats")
+	
+	@PostMapping("/candidats")
 	public CandidatDTO addCandidat(@RequestBody CandidatDTO candidatDTO ) {
 		return candidatService.createCandidat(candidatDTO);
 		
 	}
-	@PutMapping("/Candidats/{id}")
+	
+	@PutMapping("/candidats/{id}")
 	public CandidatDTO updateCandidat(@RequestBody CandidatDTO cvdto,@PathVariable Long id ) {
 		
 		return null;
 		
 	}
-	@DeleteMapping("/Candidats/{id}")
+	@DeleteMapping("/candidats/{id}")
 	public void deleteCandidat(@PathVariable Long id) {
+		candidatService.deleteCandidat(id);
+	}
+	@GetMapping("/candidats/{id}")
+	public CandidatDTO getCandidat(@PathVariable Long id) {
+		return candidatService.getCandidat(id);
 		
 	}
+	
 	
 
 }

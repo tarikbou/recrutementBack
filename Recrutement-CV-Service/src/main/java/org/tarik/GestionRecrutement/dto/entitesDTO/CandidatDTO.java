@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CandidatDTO {
 
-	private Long candidatId = null;
+	private Long id ;
 	// nom complet
 	private String nom;
 	private String prenom;
@@ -29,6 +29,6 @@ public class CandidatDTO {
 //	
 //	private List<FormationDTO> formations=new ArrayList<FormationDTO>();
 //
-	private List<CompetenceDTO> competences = new ArrayList<CompetenceDTO>();
+//	private List<CompetenceDTO> competences = new ArrayList<CompetenceDTO>();
 
 }

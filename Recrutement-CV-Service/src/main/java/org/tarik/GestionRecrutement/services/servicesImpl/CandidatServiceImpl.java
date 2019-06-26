@@ -1,6 +1,7 @@
 package org.tarik.GestionRecrutement.services.servicesImpl;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,6 @@ import org.tarik.GestionRecrutement.dao.CompetenceRepository;
 import org.tarik.GestionRecrutement.dto.CandidatMapper;
 import org.tarik.GestionRecrutement.dto.entitesDTO.CandidatDTO;
 import org.tarik.GestionRecrutement.model.Candidat;
-import org.tarik.GestionRecrutement.model.CandidatCompetence;
-import org.tarik.GestionRecrutement.model.Competence;
 import org.tarik.GestionRecrutement.services.CandidatService;
 
 @Service("candidatservice")
@@ -29,19 +28,19 @@ public class CandidatServiceImpl implements CandidatService {
 		candidatRepo.save(candidat);
 		CandidatDTO returnedCandidatDTO = CandidatMapper.INSTANCE.candidatToCandidatDTO(candidat);
 
-		if (!candidatDTO.getCompetences().isEmpty()) {
-			candidatDTO.getCompetences().forEach(compDAO -> {
-				if (compDAO.getCompetenceId().equals(null)) {
-					Competence compt = competenceRepo.save(new Competence(compDAO.getLibelle()));
-					candidatCompetencerepo.save(new CandidatCompetence(candidat, compt, compDAO.getNiveau()));
-				} else {
-					candidatCompetencerepo.save(new CandidatCompetence(candidat,
-							competenceRepo.findById(compDAO.getCompetenceId()).get(), compDAO.getNiveau()));
-				}
-
-			});
-
-		}
+//		if (!candidatDTO.getCompetences().isEmpty()) {
+//			candidatDTO.getCompetences().forEach(compDAO -> {
+//				if (compDAO.getCompetenceId().equals(null)) {
+//					Competence compt = competenceRepo.save(new Competence(compDAO.getLibelle()));
+//					candidatCompetencerepo.save(new CandidatCompetence(candidat, compt, compDAO.getNiveau()));
+//				} else {
+//					candidatCompetencerepo.save(new CandidatCompetence(candidat,
+//							competenceRepo.findById(compDAO.getCompetenceId()).get(), compDAO.getNiveau()));
+//				}
+//
+//			});
+//
+//		}
 
 	//	return CandidatMapper.INSTANCE.candidatToCandidatDTO(candidatRepo.save(candidat));
 		return returnedCandidatDTO;
@@ -55,14 +54,25 @@ public class CandidatServiceImpl implements CandidatService {
 
 	@Override
 	public void deleteCandidat(Long id) {
-		// TODO Auto-generated method stub
+		candidatRepo.deleteById(id);
 
 	}
 
+	@SuppressWarnings("null")
 	@Override
-	public Collection<CandidatDTO> getCandidats() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CandidatDTO> getCandidats() {
+		List<CandidatDTO> listCandidatsDTO=new ArrayList<>() ;
+		candidatRepo.findAll().forEach(candidat->{
+			
+			listCandidatsDTO.add(CandidatMapper.INSTANCE.candidatToCandidatDTO(candidat));
+		});
+		return listCandidatsDTO;
+	}
+
+	@Override
+	public CandidatDTO getCandidat(Long id) {
+		
+		return CandidatMapper.INSTANCE.candidatToCandidatDTO(candidatRepo.findById(id).get());
 	}
 
 }
