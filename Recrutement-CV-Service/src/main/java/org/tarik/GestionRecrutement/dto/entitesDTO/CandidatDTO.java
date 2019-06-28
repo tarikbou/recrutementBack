@@ -1,14 +1,11 @@
 package org.tarik.GestionRecrutement.dto.entitesDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.Data;
 
 @Data
 public class CandidatDTO {
 
-	private Long id ;
+	private Long id;
 	// nom complet
 	private String nom;
 	private String prenom;

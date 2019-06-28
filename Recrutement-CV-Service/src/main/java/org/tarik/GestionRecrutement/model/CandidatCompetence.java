@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -35,7 +34,7 @@ public class CandidatCompetence implements Serializable {
 
 	public CandidatCompetence(Candidat candidat, Competence competence, @Range(min = 1, max = 10) int niveau) {
 
-		this.id = new CandidatCompetenceId(candidat.getCandidatId(), competence.getCompetenceId());
+		this.id = new CandidatCompetenceId(candidat.getId(), competence.getId());
 
 		this.candidat = candidat;
 		this.competence = competence;

@@ -1,4 +1,4 @@
-package org.tarik.GestionRecrutement.dto;
+package org.tarik.GestionRecrutement.dto.pappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +11,7 @@ import org.tarik.GestionRecrutement.model.Candidat;
 public interface CandidatMapper {
 	CandidatMapper INSTANCE = Mappers.getMapper(CandidatMapper.class);
 
-	@Mappings({ @Mapping(target = "id", source = "entity.candidatId"),
+	@Mappings({ @Mapping(target = "id", source = "entity.id"),
 			@Mapping(target = "nom", source = "entity.nomComplet.nom"),
 			@Mapping(target = "prenom", source = "entity.nomComplet.prenom"),
 			@Mapping(target = "sex", source = "entity.sex"),
@@ -25,7 +25,7 @@ public interface CandidatMapper {
 
 	CandidatDTO candidatToCandidatDTO(Candidat entity);
 
-	@Mappings({ @Mapping(target = "candidatId", source = "dto.id"),
+	@Mappings({ @Mapping(target = "id", source = "dto.id"),
 			@Mapping(target = "nomComplet.nom", source = "dto.nom"),
 			@Mapping(target = "nomComplet.prenom", source = "dto.prenom"),
 			@Mapping(target = "adresse.numeroAdresse", source = "dto.numeroAdresse"),

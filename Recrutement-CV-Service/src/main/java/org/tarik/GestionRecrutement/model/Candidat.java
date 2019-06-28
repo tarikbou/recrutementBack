@@ -14,9 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
@@ -25,7 +23,7 @@ public class Candidat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, nullable = false)
-	private Long candidatId;
+	private Long id;
 	@Embedded
 	private NomComplet nomComplet = new NomComplet();
 	private String sex;

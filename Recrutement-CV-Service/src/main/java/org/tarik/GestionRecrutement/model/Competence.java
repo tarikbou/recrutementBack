@@ -21,7 +21,7 @@ public class Competence {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, nullable = false)
-	private Long competenceId;
+	private Long id;
 	private String cmpLibelle;
 	@OneToMany(mappedBy="competence")
 	private List<CandidatCompetence> candidatCompetences=new ArrayList<>();

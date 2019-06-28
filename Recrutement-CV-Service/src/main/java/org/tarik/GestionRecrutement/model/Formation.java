@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Formation {
 	@Id
-	private Long fId;
+	private Long id;
 	private String fType;
 	private String etablisement;
 	private String deplome;

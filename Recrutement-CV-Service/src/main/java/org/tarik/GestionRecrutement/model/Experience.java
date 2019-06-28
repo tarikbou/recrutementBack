@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Experience {
 	@Id
-	private Long eId;
+	private Long id;
 	private String eType;
 	@Embedded
 	private Projet eProjet;

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.tarik.GestionRecrutement.dao.CandidatCompetenceRepository;
 import org.tarik.GestionRecrutement.dao.CandidatRepository;
 import org.tarik.GestionRecrutement.dao.CompetenceRepository;
-import org.tarik.GestionRecrutement.dto.CandidatMapper;
 import org.tarik.GestionRecrutement.dto.entitesDTO.CandidatDTO;
+import org.tarik.GestionRecrutement.dto.pappers.CandidatMapper;
 import org.tarik.GestionRecrutement.model.Candidat;
 import org.tarik.GestionRecrutement.services.CandidatService;
 
@@ -42,7 +42,8 @@ public class CandidatServiceImpl implements CandidatService {
 //
 //		}
 
-	//	return CandidatMapper.INSTANCE.candidatToCandidatDTO(candidatRepo.save(candidat));
+		// return
+		// CandidatMapper.INSTANCE.candidatToCandidatDTO(candidatRepo.save(candidat));
 		return returnedCandidatDTO;
 	}
 
@@ -61,9 +62,9 @@ public class CandidatServiceImpl implements CandidatService {
 	@SuppressWarnings("null")
 	@Override
 	public List<CandidatDTO> getCandidats() {
-		List<CandidatDTO> listCandidatsDTO=new ArrayList<>() ;
-		candidatRepo.findAll().forEach(candidat->{
-			
+		List<CandidatDTO> listCandidatsDTO = new ArrayList<>();
+		candidatRepo.findAll().forEach(candidat -> {
+
 			listCandidatsDTO.add(CandidatMapper.INSTANCE.candidatToCandidatDTO(candidat));
 		});
 		return listCandidatsDTO;
@@ -71,7 +72,7 @@ public class CandidatServiceImpl implements CandidatService {
 
 	@Override
 	public CandidatDTO getCandidat(Long id) {
-		
+
 		return CandidatMapper.INSTANCE.candidatToCandidatDTO(candidatRepo.findById(id).get());
 	}
 
