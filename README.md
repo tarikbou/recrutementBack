@@ -7,3 +7,5 @@ l'api Rest de est développé avec les differents technologies du socle spring.
 
 technologie : 
 java8, springboot, springcore , springdata ,lombok, mapstruct,apachPOI, H2, Eclipse, Ubuntu.
+
+l'ajout de jenkinsfile pour le CI/CD
