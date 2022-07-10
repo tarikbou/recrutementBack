@@ -1,12 +1,15 @@
 pipeline {
     agent any
-
     stages {
+		
         stage('Build') {
             steps {
                 echo 'Building..'
-            }
-        }
+				withMaven(maven:'maven-latest') {
+					sh 'mvn clean install'
+				}
+			}
+		}
         stage('Test') {
             steps {
                 echo 'Testing..'
